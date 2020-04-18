@@ -12,12 +12,33 @@
 				var spanTag = document.getElementById("info");
 				spanTag.innerHTML = user.username;
 			}
+			function putOut(){
+				let user = Bmob.User.current();
+				const pointer = Bmob.Pointer('_User')
+				const poiID = pointer.set(user.objectId)
+				const query = Bmob.Query('article');
+				query.set("author",poiID)
+				query.set("content",document.getElementById("article").value)
+				query.save().then(res => {
+				  document.getElementById("state").innerHTML = "发布成功"
+				}).catch(err => {
+				  document.getElementById("state").innerHTML = "发布失败"+err.error;
+				})
+			}
 		</script>
 	</head>
-	<body>
+	<body onload="getLoginInfo()">
 		<span id="info"></span>
+		<br />
 		<button onclick="getLoginInfo()">
-			GetLoginUserInfo
+			刷新个人信息
 		</button>
+		<br />
+		<input id="article" />
+		<button onclick="putOut()">发布心情</button>
+		
+		<br/>
+		<span id="state"></span>
+		<a href="moodbool.html">查看心情瓶子</a>
 	</body>
 </html>

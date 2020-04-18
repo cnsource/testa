@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/Bmob-2.2.4.min.js"></script>
+		<script>
+			Bmob.initialize("e47ba6e9c21a3ff5", "222333");
+			Bmob.debug(true);
+			function loaddata(){
+				const query = Bmob.Query("article");
+				query.include("author","_User")
+				query.find().then(res => {
+				  for (var i=0;i<res.length;i++)
+				  { 
+				      document.write("<div id=''bool'>"+res[i].author.username+"  说："+res[i].content+"----时间："+res[i].createdAt+"</div>");
+				  }
+				});
+			}
+		</script>
+	</head>
+	<body onload="loaddata()">
+		
+	</body>
+</html>
