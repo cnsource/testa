@@ -4,6 +4,8 @@
 		<meta charset="utf-8">
 		<title></title>
 		<script src="js/Bmob-2.2.4.min.js"></script>
+		<link rel="stylesheet" href="//cdnjs.loli.net/ajax/libs/mdui/0.4.3/css/mdui.min.css">
+		<script src="//cdnjs.loli.net/ajax/libs/mdui/0.4.3/js/mdui.min.js"></script>
 		<script>
 			Bmob.initialize("e47ba6e9c21a3ff5", "222333");
 			Bmob.debug(true);
@@ -13,13 +15,31 @@
 				query.find().then(res => {
 				  for (var i=0;i<res.length;i++)
 				  { 
-				      document.write("<div id=''bool'>"+res[i].author.username+"  说："+res[i].content+"----时间："+res[i].createdAt+"</div>");
+					  var para = document.createElement("div");
+					  para.setAttribute("class","mdui-card");
+					  para.setAttribute("id","bool");
+					  var h3 = document.createElement("h3");
+					  var node = document.createTextNode(res[i].author.username+"  说："+res[i].content+"----时间："+res[i].createdAt);
+					  h3.appendChild(node);
+					  para.appendChild(h3)
+					  var pool = document.getElementById("moodpool");
+				      pool.appendChild(para)
 				  }
 				});
 			}
 		</script>
+		<style type="text/css">
+			#bool{
+				background-color: #28A745;
+				padding-left: 8px;
+				padding-right: 8px;
+				margin-left: 10px;
+				margin-right: 10px;
+				margin-top: 10px;
+			}
+		</style>
 	</head>
 	<body onload="loaddata()">
-		
+		<div id='moodpool'><h1>&nbsp;&nbsp;所有人的心情</h1></div>
 	</body>
 </html>
