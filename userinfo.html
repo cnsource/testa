@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<script src="js/Bmob-2.2.4.min.js"></script>
+		<script>
+			Bmob.initialize("e47ba6e9c21a3ff5", "222333");
+			Bmob.debug(true);
+			function getLoginInfo(){
+				let user = Bmob.User.current();
+				var spanTag = document.getElementById("info");
+				spanTag.innerHTML = user.username;
+			}
+		</script>
+	</head>
+	<body>
+		<span id="info"></span>
+		<button onclick="getLoginInfo()">
+			GetLoginUserInfo
+		</button>
+	</body>
+</html>
