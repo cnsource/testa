@@ -4,6 +4,8 @@
 		<meta charset="utf-8">
 		<title></title>
 		<script src="js/Bmob-2.2.4.min.js"></script>
+		<link rel="stylesheet" href="//cdnjs.loli.net/ajax/libs/mdui/0.4.3/css/mdui.min.css">
+		<script src="//cdnjs.loli.net/ajax/libs/mdui/0.4.3/js/mdui.min.js"></script>
 		<script>
 			Bmob.initialize("e47ba6e9c21a3ff5", "222333");
 			Bmob.debug(true);
@@ -13,12 +15,17 @@
 				spanTag.innerHTML = user.username;
 			}
 			function putOut(){
+				var content = document.getElementById("article").value;
+				if (content==""){
+					alert("看来你是没什么心情呀")
+					return;
+				}
 				let user = Bmob.User.current();
 				const pointer = Bmob.Pointer('_User')
 				const poiID = pointer.set(user.objectId)
 				const query = Bmob.Query('article');
 				query.set("author",poiID)
-				query.set("content",document.getElementById("article").value)
+				query.set("content",content)
 				query.save().then(res => {
 				  document.getElementById("state").innerHTML = "发布成功"
 				}).catch(err => {
@@ -28,17 +35,32 @@
 		</script>
 	</head>
 	<body onload="getLoginInfo()">
-		<span id="info"></span>
-		<br />
-		<button onclick="getLoginInfo()">
-			刷新个人信息
-		</button>
-		<br />
-		<input id="article" />
-		<button onclick="putOut()">发布心情</button>
+		<div class="mdui-container">
+			<div class="mdui-row">
+				<div class="mdui-col-xs-12">
+					<div class="mdui-col mdui-typo-display-1">
+						<span id="info"></span>
+						<br />
+						<br />
+						<button onclick="getLoginInfo()">
+							刷新个人信息
+						</button>
+						<br />
+						<br />
+						<input id="article" />
+						<br />
+						<br />
+						<button onclick="putOut()">发布心情</button>
+						<br />
+						<br/>
+						<span id="state"></span>
+						<br /><br />
+						<a href="moodbool.html">查看心情瓶子</a>
+					</div>
+				</div>
+			</div>
+			
+		</div>
 		
-		<br/>
-		<span id="state"></span>
-		<a href="moodbool.html">查看心情瓶子</a>
 	</body>
 </html>
