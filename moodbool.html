@@ -16,7 +16,7 @@
 				  for (var i=0;i<res.length;i++)
 				  { 
 					  var para = document.createElement("div");
-					  para.setAttribute("class","mdui-card mdui-col-md-2");
+					  para.setAttribute("class","mdui-card mdui-col-sm-4 mdui-col-md-4 mdui-col-lg-2 mdui-hoverable");
 					  para.setAttribute("id","bool");
 					  var content = document.createElement("font");
 					  var contenttext = document.createTextNode(res[i].content);
@@ -64,7 +64,7 @@
 	</head>
 	<body onload="loaddata()">
 		<div class="mdui-container mdui-center">
-			<div class="mdui-row" id='moodpool'><h1>&nbsp;&nbsp;所有人的心情</h1></div>
+			<div class="mdui-row mdui-center " id='moodpool'><h1>&nbsp;&nbsp;所有人的心情</h1></div>
 		</div>
 		
 	</body>
