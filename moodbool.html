@@ -16,12 +16,24 @@
 				  for (var i=0;i<res.length;i++)
 				  { 
 					  var para = document.createElement("div");
-					  para.setAttribute("class","mdui-card");
+					  para.setAttribute("class","mdui-card mdui-col-md-2");
 					  para.setAttribute("id","bool");
-					  var h3 = document.createElement("h3");
-					  var node = document.createTextNode(res[i].author.username+"  说："+res[i].content+"----时间："+res[i].createdAt);
-					  h3.appendChild(node);
-					  para.appendChild(h3)
+					  var content = document.createElement("font");
+					  var contenttext = document.createTextNode(res[i].content);
+					  var name = document.createElement("h3");
+					  name.setAttribute("id","name")
+					  var nametext = document.createTextNode(res[i].author.username)
+					  var time = document.createElement("font");
+					  var br = document.createElement("br");
+					  var timetext = document.createTextNode(res[i].createdAt)
+					  time.setAttribute("id","time")
+					  content.appendChild(contenttext);
+					  name.appendChild(nametext)
+					  time.appendChild(timetext)
+					  para.appendChild(name);
+					  para.appendChild(content);
+					  para.appendChild(br);
+					  para.appendChild(time);
 					  var pool = document.getElementById("moodpool");
 				      pool.appendChild(para)
 				  }
@@ -29,17 +41,31 @@
 			}
 		</script>
 		<style type="text/css">
+			#name{
+				color: #1E7E34;
+			}
+			#time{
+				position: relative;
+				left: 10px;
+				top: 180px;
+			}
 			#bool{
-				background-color: #28A745;
+				
+				height: 300px;
+				float: left;
+				background-color: #DAE0E5;
 				padding-left: 8px;
 				padding-right: 8px;
-				margin-left: 10px;
-				margin-right: 10px;
 				margin-top: 10px;
+				margin-left: 36px;
+				margin-bottom: 20px;
 			}
 		</style>
 	</head>
 	<body onload="loaddata()">
-		<div id='moodpool'><h1>&nbsp;&nbsp;所有人的心情</h1></div>
+		<div class="mdui-container mdui-center">
+			<div class="mdui-row" id='moodpool'><h1>&nbsp;&nbsp;所有人的心情</h1></div>
+		</div>
+		
 	</body>
 </html>
