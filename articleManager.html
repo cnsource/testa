@@ -10,18 +10,29 @@
 			Bmob.initialize("e47ba6e9c21a3ff5", "222333");
 			Bmob.debug(true);
 			function loaddata(){
+				document.getElementById("allbool").remove()
 				const query = Bmob.Query("article");
 				query.include("author","_User")
 				query.find().then(res => {
+					var allbool = document.createElement("div");
+					allbool.setAttribute("id","allbool");
 				  for (var i=0;i<res.length;i++)
 				  { 
 					  var para = document.createElement("div");
 					  para.setAttribute("class","mdui-card mdui-col-sm-4 mdui-col-md-4 mdui-col-lg-2 mdui-hoverable");
 					  para.setAttribute("id","bool");
-					  var content = document.createElement("div");
+					  var content = document.createElement("font");
 					  var contenttext = document.createTextNode(res[i].content);
 					  content.setAttribute("id","content")
-					 
+					  content.setAttribute("class","mdui-text-truncate")
+					  
+					  var del = document.createElement("div");
+					  var deltext = document.createTextNode("删除");
+					  del.setAttribute("id","dele")
+					  del.setAttribute("onclick","deleteMood('"+res[i].objectId+"')")
+					  del.setAttribute("class","mdui-btn mdui-btn-raised mdui-ripple mdui-color-theme-accent")
+					  del.appendChild(deltext)
+					  
 					  var name = document.createElement("h3");
 					  name.setAttribute("id","name")
 					  var nametext = document.createTextNode(res[i].author.username)
@@ -36,32 +47,48 @@
 					  para.appendChild(content);
 					  para.appendChild(br);
 					  para.appendChild(time);
+					  para.appendChild(del)
+					  allbool.appendChild(para)
 					  var pool = document.getElementById("moodpool");
-				      pool.appendChild(para)
+				      pool.appendChild(allbool)
 				  }
 				});
 			}
+			function  deleteMood(objectId){
+				var b = confirm("你确定要删除这个心情？");
+				if(b == false){
+					return;
+				}
+				const query = Bmob.Query('article');
+				query.destroy(objectId).then(res => {
+				   loaddata()
+				}).catch(err => {
+				    alert("无法删除")
+				})
+			}
 		</script>
 		<style type="text/css">
-			::-webkit-scrollbar {
-			/*隐藏滚轮*/
-			display: none;
+			#dele {
+				color: white;
+				background-color: #ff4081;
+				position: absolute;
+				right: 2px;
+				top: 2px;
 			}
-			#content{
-				height: 50%;
-				
-				overflow: scroll;
-			}
-			#name{
+
+			#name {
 				color: #1E7E34;
 			}
-			#time{
+
+			#time {
 				position: absolute;
 				left: 8px;
 				bottom: 10px;
 			}
-			#bool{
-				height: 200px;
+
+			#bool {
+
+				height: 150px;
 				float: left;
 				background-color: #DAE0E5;
 				padding-left: 8px;
@@ -72,10 +99,13 @@
 			}
 		</style>
 	</head>
-	<body onload="loaddata()">
+	<body onload="loaddata()" class="mdui-theme-primary-indigo mdui-theme-accent-pink">
 		<div class="mdui-container mdui-center">
-			<div class="mdui-row mdui-center " id='moodpool'><h1>&nbsp;&nbsp;所有人的心情</h1></div>
+			<div class="mdui-row mdui-center " id='moodpool'>
+				<h1>&nbsp;&nbsp;心情吐槽管理</h1>
+				<div id="allbool"></div>
+			</div>
 		</div>
-		
+
 	</body>
 </html>
